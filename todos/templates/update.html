@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.msg{
+    color:blue;
+}
+</style>
+<div class = "row">
+<div class = "col-sm-8 offset-2">
+<h4 class = "alert alert-info"> Update Student Information</h4>
+<form action = "{% url 'update' id %}" method = "post" >
+{% csrf_token %}
+{{form.as_p}}
+
+<input type = "submit" name = "update" class = "btn btn-primary">
+<h2><a href = "{% url 'home' %}" class = "btn btn-primary">Back </a></h2>
+
+</form>
+
+{% if messages %}
+{% for message in messages %}
+<h2 class = "msg">{{message.tag}}{{message}}</h2>
+{% endfor %}
+{% endif %}
+</div> 
+</div>
+{% endblock content %}
