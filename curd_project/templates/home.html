@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+
+<h3 class = "alert alert-success text-center">Student Informations</h3>
+<div class = "row"> 
+<div class = " col-sm-4 ml-2 mr-2" >
+<form action = "/" method = 'POST'>
+{% csrf_token %}
+{% for fm in form %}
+{{fm.label}}{{fm}}{{fm.error}}<br><br>
+{% endfor %}
+<input type = "submit" value = "submit" class = "btn btn-primary">
+</form>
+</div>
+
+<table class="table col-sm-6">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+ 
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for stu in student %}
+
+    <tr>
+      <th scope="row"> {{stu.id}} </th>
+      <td> {{stu.name}} </td>
+      <td> {{stu.email}} </td>
+      <td> {{stu.phone}} </td>
+      <th>
+      <form action = "{% url 'delete' stu.id%}" method = 'POST'>
+      {% csrf_token %}
+      <input type = "submit" value = "Delete" class = "btn btn-primary">
+      </form>
+      </th>
+      <th>
+      <a href = "{% url 'update' stu.id%}" class = "btn btn-primary">Update</a>
+      </th>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
